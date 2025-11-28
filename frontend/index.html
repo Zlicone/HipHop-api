@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Old School Hip Hop API 🎤</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <h1>🎤 Old School Hip Hop</h1>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#albums" class="nav-link">Albums</a>
+                <a href="#recommendations" class="nav-link">Recommendations</a>
+                <button id="loginBtn" class="btn btn-primary">Login</button>
+                <button id="logoutBtn" class="btn btn-secondary" style="display:none;">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1 class="hero-title">Discover Classic Hip Hop</h1>
+            <p class="hero-subtitle">Explore the golden age of hip hop - 1980s to 2000s</p>
+            <div class="hero-buttons">
+                <button onclick="scrollToAlbums()" class="btn btn-large">Explore Albums</button>
+                <button onclick="getRandomAlbum()" class="btn btn-outline">Random Classic</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="container">
+            <div class="filter-group">
+                <label>Region:</label>
+                <select id="regionFilter" onchange="filterAlbums()">
+                    <option value="">All Regions</option>
+                    <option value="east_coast">East Coast</option>
+                    <option value="west_coast">West Coast</option>
+                    <option value="south">South Coast</option>
+                </select>
+            </div>
+            
+            <div class="filter-group">
+                <label>Year:</label>
+                <input type="number" id="yearFilter" placeholder="e.g. 1994" onchange="filterAlbums()">
+            </div>
+            
+            <div class="filter-group">
+                <label>Artist:</label>
+                <input type="text" id="artistFilter" placeholder="Search artist..." onchange="filterAlbums()">
+            </div>
+            
+            <button onclick="resetFilters()" class="btn btn-secondary">Reset</button>
+        </div>
+    </section>
+
+    <!-- Albums Grid -->
+    <section id="albums" class="albums-section">
+        <div class="container">
+            <h2 class="section-title">Classic Albums</h2>
+            <div id="loadingSpinner" class="spinner">Loading...</div>
+            <div id="albumsGrid" class="albums-grid"></div>
+            <div id="errorMessage" class="error-message" style="display:none;"></div>
+        </div>
+    </section>
+
+    <!-- Recommendations Section -->
+    <section id="recommendations" class="recommendations-section">
+        <div class="container">
+            <h2 class="section-title">Top Rated Albums</h2>
+            <div id="topRatedGrid" class="albums-grid"></div>
+        </div>
+    </section>
+
+    <!-- Album Modal -->
+    <div id="albumModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="albumDetails"></div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeLoginModal()">&times;</span>
+            <h2>Login</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <input type="text" id="loginUsername" placeholder="Username" required>
+                <input type="password" id="loginPassword" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+                <p class="form-hint">Demo: username: hiphopfan, password: password123</p>
+            </form>
+            <p class="form-footer">Don't have an account? <a href="#" onclick="showRegisterForm()">Register</a></p>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeRegisterModal()">&times;</span>
+            <h2>Register</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <input type="text" id="regUsername" placeholder="Username" required>
+                <input type="email" id="regEmail" placeholder="Email" required>
+                <input type="password" id="regPassword" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+            <p class="form-footer">Already have an account? <a href="#" onclick="showLoginForm()">Login</a></p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Old School Hip Hop API | Built with FastAPI</p>
+            <p>🎤 Preserving the culture, one classic at a time</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+</html>
