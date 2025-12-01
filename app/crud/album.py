@@ -1,19 +1,26 @@
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 from app.models.album import Album
+from app.models.artist import Artist
 from app.schemas.album import AlbumCreate, AlbumUpdate
 from typing import Optional
 
 def get_album(db: Session, album_id: int):
-    return db.query(Album).filter(Album.id == album_id).first()
+    return db.query(Album).options(
+        joinedload(Album.artist),
+        joinedload(Album.producer)
+    ).filter(Album.id == album_id).first()
 
 def get_albums(db: Session, skip: int = 0, limit: int = 20, 
                artist: Optional[str] = None, 
                year: Optional[int] = None,
                region: Optional[str] = None):
-    query = db.query(Album)
+    query = db.query(Album).options(
+        joinedload(Album.artist),
+        joinedload(Album.producer)
+    )
     
     if artist:
-        query = query.filter(Album.artist.ilike(f"%{artist}%"))
+        query = query.join(Album.artist).filter(Artist.name.ilike(f"%{artist}%"))
     if year:
         query = query.filter(Album.year == year)
     if region:

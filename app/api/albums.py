@@ -6,7 +6,7 @@ from app.database import get_db
 from app.schemas.album import Album, AlbumCreate, AlbumUpdate
 from app.crud import album as crud_album
 
-router = APIRouter(prefix="/albums", tags=["Albums"])
+router = APIRouter(prefix="/albums", tags=["Albums"])  # BEZ /
 
 @router.get("/", response_model=List[Album])
 def get_albums(

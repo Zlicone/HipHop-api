@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
-from app.api import auth, albums, ratings, recommendations
+from app.api import auth, albums, ratings, recommendations, artists, producers
 
 # Kreiraj tablice u bazi
 Base.metadata.create_all(bind=engine)
@@ -25,6 +25,8 @@ app.include_router(auth.router, prefix="/api/v1")
 app.include_router(albums.router, prefix="/api/v1")
 app.include_router(ratings.router, prefix="/api/v1")
 app.include_router(recommendations.router, prefix="/api/v1")
+app.include_router(artists.router, prefix="/api/v1")  
+app.include_router(producers.router, prefix="/api/v1")
 
 @app.get("/")
 def root():

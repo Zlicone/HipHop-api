@@ -15,8 +15,9 @@
             </div>
             <div class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link active">Home</a>
-                <a href="#albums" class="nav-link">Albums</a>
-                <a href="#recommendations" class="nav-link">Recommendations</a>
+                <a href="#albums" class="nav-link">Albumi</a>
+                <a href="#artists" class="nav-link">Izvođači</a>
+                <a href="#producers" class="nav-link">Producenti</a>
                 <button id="loginBtn" class="btn btn-primary">Login</button>
                 <button id="logoutBtn" class="btn btn-secondary" style="display:none;">Logout</button>
             </div>
@@ -35,47 +36,85 @@
         </div>
     </section>
 
-    <!-- Filters -->
-    <section class="filters">
-        <div class="container">
-            <div class="filter-group">
-                <label>Region:</label>
-                <select id="regionFilter" onchange="filterAlbums()">
-                    <option value="">All Regions</option>
-                    <option value="east_coast">East Coast</option>
-                    <option value="west_coast">West Coast</option>
-                    <option value="south">South Coast</option>
-                </select>
-            </div>
-            
-            <div class="filter-group">
-                <label>Year:</label>
-                <input type="number" id="yearFilter" placeholder="e.g. 1994" onchange="filterAlbums()">
-            </div>
-            
-            <div class="filter-group">
-                <label>Artist:</label>
-                <input type="text" id="artistFilter" placeholder="Search artist..." onchange="filterAlbums()">
-            </div>
-            
-            <button onclick="resetFilters()" class="btn btn-secondary">Reset</button>
-        </div>
-    </section>
-
-    <!-- Albums Grid -->
+    <!-- ============ ALBUMS SECTION ============ -->
     <section id="albums" class="albums-section">
         <div class="container">
-            <h2 class="section-title">Classic Albums</h2>
-            <div id="loadingSpinner" class="spinner">Loading...</div>
+            <h2 class="section-title">Classic Albums 📀</h2>
+            
+            <!-- Album Filters -->
+            <div class="filters" style="margin-bottom: 2rem;">
+                <div class="container">
+                    <div class="filter-group">
+                        <label>Region:</label>
+                        <select id="albumRegionFilter" onchange="filterAlbums()">
+                            <option value="">All Regions</option>
+                            <option value="east_coast">East Coast</option>
+                            <option value="west_coast">West Coast</option>
+                            <option value="south">South</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Year:</label>
+                        <input type="number" id="albumYearFilter" placeholder="e.g. 1994" onchange="filterAlbums()">
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label>Artist:</label>
+                        <input type="text" id="albumArtistFilter" placeholder="Search artist..." onchange="filterAlbums()">
+                    </div>
+                    
+                    <button onclick="resetAlbumFilters()" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+            
+            <div id="albumsLoadingSpinner" class="spinner">Loading...</div>
             <div id="albumsGrid" class="albums-grid"></div>
-            <div id="errorMessage" class="error-message" style="display:none;"></div>
         </div>
     </section>
 
-    <!-- Recommendations Section -->
-    <section id="recommendations" class="recommendations-section">
+    <!-- ============ ARTISTS SECTION ============ -->
+    <section id="artists" class="albums-section" style="background: rgba(0,0,0,0.3); padding: 4rem 0;">
         <div class="container">
-            <h2 class="section-title">Top Rated Albums</h2>
+            <h2 class="section-title">Hip Hop Legende 👤</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 2rem;">Izvođači koji su oblikovali hip hop kulturu</p>
+            
+            <!-- Artist Filters -->
+            <div class="filters" style="margin-bottom: 2rem;">
+                <div class="container">
+                    <div class="filter-group">
+                        <label>Region:</label>
+                        <select id="artistRegionFilter" onchange="filterArtists()">
+                            <option value="">All Regions</option>
+                            <option value="east_coast">East Coast</option>
+                            <option value="west_coast">West Coast</option>
+                            <option value="south">South</option>
+                        </select>
+                    </div>
+                    <button onclick="resetArtistFilters()" class="btn btn-secondary">Reset</button>
+                </div>
+            </div>
+            
+            <div id="artistsLoadingSpinner" class="spinner">Loading...</div>
+            <div id="artistsGrid" class="albums-grid"></div>
+        </div>
+    </section>
+
+    <!-- ============ PRODUCERS SECTION ============ -->
+    <section id="producers" class="albums-section">
+        <div class="container">
+            <h2 class="section-title">Majstori Produkcije 🎛️</h2>
+            <p style="text-align: center; color: #aaa; margin-bottom: 2rem;">Producenti koji su kreirali zvuk hip hop-a</p>
+            
+            <div id="producersLoadingSpinner" class="spinner">Loading...</div>
+            <div id="producersGrid" class="albums-grid"></div>
+        </div>
+    </section>
+
+    <!-- Top Rated Section -->
+    <section class="recommendations-section" style="background: rgba(0,0,0,0.3);">
+        <div class="container">
+            <h2 class="section-title">Top Rated Albums ⭐</h2>
             <div id="topRatedGrid" class="albums-grid"></div>
         </div>
     </section>
@@ -83,8 +122,24 @@
     <!-- Album Modal -->
     <div id="albumModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
+            <span class="close" onclick="closeAlbumModal()">&times;</span>
             <div id="albumDetails"></div>
+        </div>
+    </div>
+
+    <!-- Artist Modal -->
+    <div id="artistModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeArtistModal()">&times;</span>
+            <div id="artistDetails"></div>
+        </div>
+    </div>
+
+    <!-- Producer Modal -->
+    <div id="producerModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeProducerModal()">&times;</span>
+            <div id="producerDetails"></div>
         </div>
     </div>
 
